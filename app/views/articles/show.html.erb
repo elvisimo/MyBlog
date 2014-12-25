@@ -1,0 +1,37 @@
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+ 
+<p>
+  <strong>Text:</strong>
+  <%= @article.text %>
+</p>
+ 
+<h2>Comments</h2>
+<% @article.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.text %>
+  </p>
+  <% if user_signed_in? %>
+  <p> <%= link_to 'Delete', [comment.article, comment], method: :delete, data: {confirm: 'Are u sure?'} %> </p>
+  <% end %>
+<% end %>
+ 
+<h2>Add a comment:</h2>
+<%= form_for([@article, @article.comments.build]) do |f| %>
+   <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<p><%= link_to 'Back', controller:'articles' %> </p>
