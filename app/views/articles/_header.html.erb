@@ -1,0 +1,19 @@
+<%= nav_bar :fixed => :top, :brand => "My Blog" do %>
+    <%= menu_group do %>
+        <%= menu_item "Home", root_path %>
+        <%= menu_item "About Us" %>
+        <%= menu_item "Contact" %>
+    <% end %>
+    <% if current_user %>
+        <%= menu_item "Log Out", destroy_user_session_path %>
+    <% else %>
+        <%= menu_group :pull => :right do %>
+            <%= menu_item "Sign Up", registration_path %>
+            <%= form_for @user, :url => session_path(:user) do |f| -%>
+              <p><%= f.text_field :email %></p>
+              <p><%= f.password_field :password %></p>
+              <p><%= f.submit "Sign in" %></p>
+            <% end -%>
+        <% end %>
+    <% end %>
+<% end %>
